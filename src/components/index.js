@@ -1,5 +1,5 @@
-import FileBrowser from "./FileBrowser";
+import SaveDialog from "./SaveDialog";
 
 export default {
-  FileBrowser,
+  SaveDialog,
 };

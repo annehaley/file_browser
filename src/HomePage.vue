@@ -1,10 +1,10 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import FileBrowser from "./components/FileBrowser.vue";
+import SaveDialog from "./components/SaveDialog.vue";
 
 export default defineComponent({
   name: "HomePage",
-  components: { FileBrowser },
+  components: { SaveDialog },
   setup() {
     return {};
   },
@@ -15,7 +15,7 @@ export default defineComponent({
   <div id="app">
     <v-app>
       <div class="d-flex">
-        <file-browser />
+        <save-dialog />
       </div>
     </v-app>
   </div>
