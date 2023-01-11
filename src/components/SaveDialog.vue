@@ -73,14 +73,18 @@ export default {
           <v-tabs-items v-model="unsyncedCurrentTab">
             <v-tab-item>
               <file-browser
+                locationType="Local"
                 :allDirectories="localDirectories"
                 :currentDir="currentLocalDir"
+                @setCurrentDir="(dir) => this.$emit('setLocalDir', dir)"
               />
             </v-tab-item>
             <v-tab-item>
               <file-browser
+                locationType="Remote"
                 :allDirectories="remoteDirectories"
                 :currentDir="currentRemoteDir"
+                @setCurrentDir="(dir) => this.$emit('setRemoteDir', dir)"
               />
             </v-tab-item>
           </v-tabs-items>
@@ -91,8 +95,10 @@ export default {
               <v-tab class="highlighted-tab">Local</v-tab>
             </v-tabs>
             <file-browser
+              locationType="Local"
               :allDirectories="localDirectories"
               :currentDir="currentLocalDir"
+              @setCurrentDir="(dir) => this.$emit('setLocalDir', dir)"
             />
           </div>
           <div>
@@ -100,8 +106,10 @@ export default {
               <v-tab class="highlighted-tab">Remote</v-tab>
             </v-tabs>
             <file-browser
+              locationType="Remote"
               :allDirectories="remoteDirectories"
               :currentDir="currentRemoteDir"
+              @setCurrentDir="(dir) => this.$emit('setRemoteDir', dir)"
             />
           </div>
         </div>
@@ -126,7 +134,7 @@ export default {
   width: 100%;
 }
 .sync-display > div {
-  flex-grow: 1;
+  width: 50%;
 }
 .highlighted-tab {
   background-color: lightblue !important;
