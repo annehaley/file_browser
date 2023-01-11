@@ -12,13 +12,12 @@ class HtmlElement(AbstractElement):
 class FileBrowser(HtmlElement):
     def __init__(self, **kwargs):
         super().__init__(
-            "filebrowser",
+            "file-browser",
             **kwargs,
         )
         self._attr_names += [
-            # ("histogram_data", "histogramData"),
             "attribute"
         ]
         self._event_names += [
-            ("set_attribute", "setAttribute"),
+            ("set_attribute_value", "setAttributeValue"),
         ]

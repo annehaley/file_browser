@@ -1,9 +1,10 @@
 <script lang="ts">
 import { defineComponent } from "vue";
+import FileBrowser from "./components/FileBrowser.vue";
 
 export default defineComponent({
   name: "HomePage",
-  components: {},
+  components: { FileBrowser },
   setup() {
     return {};
   },
@@ -13,7 +14,9 @@ export default defineComponent({
 <template>
   <div id="app">
     <v-app>
-      <div class="d-flex">hello dev!</div>
+      <div class="d-flex">
+        <file-browser />
+      </div>
     </v-app>
   </div>
 </template>
