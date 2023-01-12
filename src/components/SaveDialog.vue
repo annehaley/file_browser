@@ -74,6 +74,7 @@ export default {
             <v-tab-item>
               <file-browser
                 locationType="Local"
+                :small="syncCurrentLocalAndRemote"
                 :allDirectories="localDirectories"
                 :currentDir="currentLocalDir"
                 @setCurrentDir="(dir) => this.$emit('setLocalDir', dir)"
@@ -82,6 +83,7 @@ export default {
             <v-tab-item>
               <file-browser
                 locationType="Remote"
+                :small="syncCurrentLocalAndRemote"
                 :allDirectories="remoteDirectories"
                 :currentDir="currentRemoteDir"
                 @setCurrentDir="(dir) => this.$emit('setRemoteDir', dir)"
@@ -96,6 +98,7 @@ export default {
             </v-tabs>
             <file-browser
               locationType="Local"
+              :small="syncCurrentLocalAndRemote"
               :allDirectories="localDirectories"
               :currentDir="currentLocalDir"
               @setCurrentDir="(dir) => this.$emit('setLocalDir', dir)"
@@ -107,6 +110,7 @@ export default {
             </v-tabs>
             <file-browser
               locationType="Remote"
+              :small="syncCurrentLocalAndRemote"
               :allDirectories="remoteDirectories"
               :currentDir="currentRemoteDir"
               @setCurrentDir="(dir) => this.$emit('setRemoteDir', dir)"
