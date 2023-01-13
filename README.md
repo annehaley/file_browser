@@ -9,8 +9,13 @@ pip install [path/to/this/repository]
 
 Invoke the trame Engine and UI classes for this widget in your trame project.
 ```
-from filebrowser import engine as widget_engine
-from filebrowser import ui as widget_ui
+from filebrowser import engine as filebrowser_engine
+...
+filebrowser_engine.initialize(server, self.state, self.ctrl, self.vtk_pipeline)
+```
+
+```
+from filebrowser.widget import FileBrowser
 ```
 
 Run the trame application (follow instructions for that project).
