@@ -17,10 +17,58 @@ export default {
       type: String,
       default: undefined,
     },
+    dirContents: {
+      type: Array,
+      required: true,
+    },
+  },
+  methods: {
+    getIcon(type: string) {
+      switch (type) {
+        case "folder":
+          return "mdi-folder";
+        default:
+          return "mdi-file";
+      }
+    },
+  },
+  computed: {
+    headers() {
+      const headers = this.availableHeaders.filter((h) =>
+        this.columnsShown.includes(h.value)
+      );
+      headers.push({
+        text: "...",
+        align: "end",
+        value: "add_column",
+        width: 20,
+        sortable: false,
+      });
+      return headers;
+    },
   },
   data() {
+    const availableHeaders = [
+      {
+        text: "Filename",
+        align: "start",
+        value: "name",
+        width: 200,
+        sortable: true,
+      },
+      { text: "Type", align: "end", value: "type" },
+      { text: "Size", align: "end", value: "size" },
+      { text: "Date Modified", align: "end", value: "modified" },
+      { text: "Owner", align: "end", value: "owner" },
+    ];
+    const columnsShown = ["name", "type", "size", "modified"];
+
     return {
+      showColumnPicker: false,
       filterString: undefined,
+      selectedItems: [],
+      availableHeaders,
+      columnsShown,
     };
   },
 };
@@ -96,6 +144,45 @@ export default {
         class="filter-input"
       />
     </div>
+    <div style="position: relative">
+      <v-data-table
+        show-select
+        hide-default-footer
+        fixed-header
+        v-model="selectedItems"
+        :items="dirContents"
+        :headers="headers"
+        :search="filterString"
+      >
+        <template v-slot:[`header.add_column`]="{}">
+          <v-btn x-small depressed @click="showColumnPicker = true">
+            <v-icon>mdi-dots-horizontal</v-icon>
+          </v-btn>
+        </template>
+        <template v-slot:[`item.name`]="{ item }">
+          <v-icon>{{ getIcon(item.type) }}</v-icon>
+          {{ item.name }}
+        </template>
+      </v-data-table>
+      <v-overlay
+        absolute
+        :value="showColumnPicker"
+        @click="showColumnPicker = false"
+      >
+        <v-card @click.stop light class="pa-3 column-picker">
+          <v-card-subtitle class="py-1">Column Visibility</v-card-subtitle>
+          <v-checkbox
+            v-for="availableHeader in availableHeaders"
+            v-model="columnsShown"
+            :key="availableHeader.value"
+            :value="availableHeader.value"
+            :label="availableHeader.text"
+            dense
+            hide-details
+          />
+        </v-card>
+      </v-overlay>
+    </div>
   </v-card>
 </template>
 
@@ -111,6 +198,7 @@ export default {
 .dir-select {
   margin-right: 10px;
   min-width: 200px;
+  max-width: 650px;
   background-color: white;
 }
 .filter-box {
@@ -135,5 +223,18 @@ export default {
   min-width: 20px;
   margin-top: 0;
   margin-left: 5px;
+}
+.column-picker {
+  right: 10px;
+  top: 10px;
+  width: 300px;
+  position: absolute;
+}
+</style>
+
+<style>
+.v-overlay__content {
+  width: 100%;
+  height: 100%;
 }
 </style>

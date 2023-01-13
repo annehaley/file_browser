@@ -6,8 +6,71 @@ export default defineComponent({
   name: "HomePage",
   components: { SaveDialog },
   setup() {
-    const currentLocalDir = ref(undefined);
-    const currentRemoteDir = ref(undefined);
+    const currentLocalDir = ref("/home/localUser/Data/One");
+    const currentRemoteDir = ref("remote_host:/root/data/one");
+
+    function getDirContents(dir: string) {
+      console.log("getting random contents for", dir);
+      const possibleFiles = [
+        {
+          name: "example1",
+          type: "file",
+          size: "10KB",
+          modified: "10/30/22 12:23pm",
+          owner: "root",
+        },
+        {
+          name: "example2",
+          type: "file",
+          size: "20KB",
+          modified: "10/30/22 2:00pm",
+          owner: "root",
+        },
+        {
+          name: "example3",
+          type: "file",
+          size: "30KB",
+          modified: "10/30/22 3:00pm",
+          owner: "root",
+        },
+        {
+          name: "a big file",
+          type: "file",
+          size: "10MB",
+          modified: "10/31/22 10:00pm",
+          owner: "root",
+        },
+        {
+          name: "foo",
+          type: "file",
+          size: "1MB",
+          modified: "10/29/22 4:00pm",
+          owner: "root",
+        },
+        {
+          name: "bar",
+          type: "file",
+          size: "1MB",
+          modified: "10/29/22 4:00pm",
+          owner: "root",
+        },
+        {
+          name: "Folder A",
+          type: "folder",
+          size: "--",
+          modified: "10/29/22 4:00pm",
+          owner: "root",
+        },
+        {
+          name: "Folder B",
+          type: "folder",
+          size: "--",
+          modified: "10/29/22 4:00pm",
+          owner: "root",
+        },
+      ];
+      return possibleFiles.filter(() => Math.random() < 0.5);
+    }
 
     return {
       localDirectories: [
@@ -26,6 +89,7 @@ export default defineComponent({
       ],
       currentLocalDir,
       currentRemoteDir,
+      getDirContents,
     };
   },
 });
@@ -40,6 +104,8 @@ export default defineComponent({
           :currentRemoteDir="currentRemoteDir"
           :remoteDirectories="remoteDirectories"
           :localDirectories="localDirectories"
+          :currentLocalDirContents="getDirContents(currentLocalDir)"
+          :currentRemoteDirContents="getDirContents(currentRemoteDir)"
           @setLocalDir="(dir) => (currentLocalDir = dir)"
           @setRemoteDir="(dir) => (currentRemoteDir = dir)"
         />

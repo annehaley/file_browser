@@ -19,6 +19,14 @@ export default {
       type: String,
       default: undefined,
     },
+    currentLocalDirContents: {
+      type: Array,
+      required: true,
+    },
+    currentRemoteDirContents: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
@@ -38,7 +46,7 @@ export default {
     <v-dialog
       v-model="dialogOpen"
       transition="dialog-bottom-transition"
-      max-width="600"
+      max-width="800"
     >
       <v-card>
         <v-card-text class="text-h6 grey lighten-2">
@@ -77,6 +85,7 @@ export default {
                 :small="syncCurrentLocalAndRemote"
                 :allDirectories="localDirectories"
                 :currentDir="currentLocalDir"
+                :dirContents="currentLocalDirContents"
                 @setCurrentDir="(dir) => this.$emit('setLocalDir', dir)"
               />
             </v-tab-item>
@@ -86,6 +95,7 @@ export default {
                 :small="syncCurrentLocalAndRemote"
                 :allDirectories="remoteDirectories"
                 :currentDir="currentRemoteDir"
+                :dirContents="currentRemoteDirContents"
                 @setCurrentDir="(dir) => this.$emit('setRemoteDir', dir)"
               />
             </v-tab-item>
@@ -101,6 +111,7 @@ export default {
               :small="syncCurrentLocalAndRemote"
               :allDirectories="localDirectories"
               :currentDir="currentLocalDir"
+              :dirContents="currentLocalDirContents"
               @setCurrentDir="(dir) => this.$emit('setLocalDir', dir)"
             />
           </div>
@@ -113,6 +124,7 @@ export default {
               :small="syncCurrentLocalAndRemote"
               :allDirectories="remoteDirectories"
               :currentDir="currentRemoteDir"
+              :dirContents="currentRemoteDirContents"
               @setCurrentDir="(dir) => this.$emit('setRemoteDir', dir)"
             />
           </div>
