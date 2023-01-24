@@ -5,11 +5,11 @@ export default {
   props: {
     localDirectories: {
       type: Array,
-      required: true,
+      default: () => [],
     },
     remoteDirectories: {
       type: Array,
-      required: true,
+      default: () => [],
     },
     currentLocalDir: {
       type: String,
@@ -21,14 +21,15 @@ export default {
     },
     currentLocalDirContents: {
       type: Array,
-      required: true,
+      default: () => [],
     },
     currentRemoteDirContents: {
       type: Array,
-      required: true,
+      default: () => [],
     },
   },
   data() {
+    console.log("dataaa");
     return {
       dialogOpen: true,
       syncCurrentLocalAndRemote: false,

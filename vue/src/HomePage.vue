@@ -1,15 +1,11 @@
 <script lang="ts">
-import { defineComponent, ref } from "vue";
 import SaveDialog from "./components/SaveDialog.vue";
 
-export default defineComponent({
+export default {
   name: "HomePage",
   components: { SaveDialog },
-  setup() {
-    const currentLocalDir = ref("/home/localUser/Data/One");
-    const currentRemoteDir = ref("remote_host:/root/data/one");
-
-    function getDirContents(dir: string) {
+  methods: {
+    getDirContents(dir: string) {
       console.log("getting random contents for", dir);
       const possibleFiles = [
         {
@@ -71,7 +67,8 @@ export default defineComponent({
       ];
       return possibleFiles.filter(() => Math.random() < 0.5);
     }
-
+  },
+  data() {
     return {
       localDirectories: [
         "/home/localUser/Documents",
@@ -87,12 +84,11 @@ export default defineComponent({
         "remote_host:/root/data/two",
         "remote_host:/root/data/three",
       ],
-      currentLocalDir,
-      currentRemoteDir,
-      getDirContents,
+      currentLocalDir: "/home/localUser/Data/One",
+      currentRemoteDir: "remote_host:/root/data/one",
     };
   },
-});
+};
 </script>
 
 <template>
@@ -113,18 +109,3 @@ export default defineComponent({
     </v-app>
   </div>
 </template>
-
-<style scoped>
-.container-1 {
-  margin: 10px;
-  padding: 10px;
-  width: 400px;
-  background-color: black;
-}
-.container-2 {
-  margin: 10px;
-  padding: 10px;
-  border: 1px dashed black;
-  width: 700px;
-}
-</style>

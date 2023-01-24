@@ -9,15 +9,10 @@ class HtmlElement(AbstractElement):
             self.server.enable_module(module)
 
 
+# Expose your vue component(s)
 class FileBrowser(HtmlElement):
     def __init__(self, **kwargs):
         super().__init__(
-            "file-browser",
+            "save-dialog",
             **kwargs,
         )
-        self._attr_names += [
-            "attribute"
-        ]
-        self._event_names += [
-            ("set_attribute_value", "setAttributeValue"),
-        ]

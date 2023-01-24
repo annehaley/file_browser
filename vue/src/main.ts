@@ -1,6 +1,7 @@
 import Vue from "vue";
 import App from "./HomePage.vue";
 import Vuetify from "vuetify";
+import "@mdi/font/css/materialdesignicons.css";
 
 Vue.config.productionTip = false;
 Vue.use(Vuetify);
