@@ -1,9 +1,9 @@
 <script lang="ts">
-import SaveDialog from "./components/SaveDialog.vue";
+import FileDialog from "./components/FileDialog.vue";
 
 export default {
   name: "HomePage",
-  components: { SaveDialog },
+  components: { FileDialog },
   methods: {
     getDirContents(dir: string) {
       console.log("getting random contents for", dir);
@@ -66,7 +66,13 @@ export default {
         },
       ];
       return possibleFiles.filter(() => Math.random() < 0.5);
-    }
+    },
+    save(fileInfo) {
+      console.log("save", fileInfo);
+    },
+    open(fileInfo) {
+      console.log("save", fileInfo);
+    },
   },
   data() {
     return {
@@ -86,6 +92,12 @@ export default {
       ],
       currentLocalDir: "/home/localUser/Data/One",
       currentRemoteDir: "remote_host:/root/data/one",
+      fileTypes: [
+        {
+          value: ".vtpd",
+          text: "VTK PartitionedDataSetCollection File (*.vtpd)",
+        },
+      ],
     };
   },
 };
@@ -95,15 +107,31 @@ export default {
   <div id="app">
     <v-app>
       <div class="d-flex">
-        <save-dialog
+        <file-dialog
+          mode="Save"
           :currentLocalDir="currentLocalDir"
           :currentRemoteDir="currentRemoteDir"
           :remoteDirectories="remoteDirectories"
           :localDirectories="localDirectories"
           :currentLocalDirContents="getDirContents(currentLocalDir)"
           :currentRemoteDirContents="getDirContents(currentRemoteDir)"
+          :fileTypes="fileTypes"
           @setLocalDir="(dir) => (currentLocalDir = dir)"
           @setRemoteDir="(dir) => (currentRemoteDir = dir)"
+          @submit="save"
+        />
+        <file-dialog
+          mode="Open"
+          :currentLocalDir="currentLocalDir"
+          :currentRemoteDir="currentRemoteDir"
+          :remoteDirectories="remoteDirectories"
+          :localDirectories="localDirectories"
+          :currentLocalDirContents="getDirContents(currentLocalDir)"
+          :currentRemoteDirContents="getDirContents(currentRemoteDir)"
+          :fileTypes="fileTypes"
+          @setLocalDir="(dir) => (currentLocalDir = dir)"
+          @setRemoteDir="(dir) => (currentRemoteDir = dir)"
+          @submit="open"
         />
       </div>
     </v-app>

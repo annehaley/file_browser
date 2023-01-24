@@ -3,6 +3,10 @@ import FileBrowser from "./FileBrowser.vue";
 export default {
   components: { FileBrowser },
   props: {
+    mode: {
+      type: String,
+      default: "Save",
+    },
     localDirectories: {
       type: Array,
       default: () => [],
@@ -27,23 +31,34 @@ export default {
       type: Array,
       default: () => [],
     },
+    fileTypes: {
+      type: Array,
+      default: () => [],
+    },
   },
   data() {
-    console.log("dataaa");
     return {
-      dialogOpen: true,
+      dialogOpen: false,
       syncCurrentLocalAndRemote: false,
       unsyncedCurrentTab: "local",
-      keywordFilter: undefined,
-      categoryFilter: undefined,
+      filename: undefined,
+      filetype: this.fileTypes[0]?.value,
     };
+  },
+  methods: {
+    submit() {
+      this.$emit("submit", {
+        mode: this.mode,
+        filename: this.filename + this.filetype,
+      });
+    },
   },
 };
 </script>
 
 <template>
   <div class="container">
-    <v-btn color="primary" @click="dialogOpen = true"> Save </v-btn>
+    <v-btn color="primary" @click="dialogOpen = true"> {{ mode }} </v-btn>
     <v-dialog
       v-model="dialogOpen"
       transition="dialog-bottom-transition"
@@ -51,7 +66,7 @@ export default {
     >
       <v-card>
         <v-card-text class="text-h6 grey lighten-2">
-          Save
+          {{ mode }}
           <v-icon
             @click="dialogOpen = false"
             style="float: right; height: 30px"
@@ -130,6 +145,27 @@ export default {
             />
           </div>
         </div>
+        <div class="pa-3 container">
+          <v-text-field
+            v-model="filename"
+            autofocus
+            placeholder="File name"
+            :disabled="mode !== 'Save'"
+          />
+          <v-btn v-if="mode !== 'Save'" :disabled="!filename" @click="submit">
+            {{ mode }}
+          </v-btn>
+          <v-select
+            v-model="filetype"
+            :items="fileTypes"
+            label="File Type"
+            class="dir-select"
+            solo
+          />
+          <v-btn :disabled="!(filename && filetype)" @click="submit">
+            {{ mode }}
+          </v-btn>
+        </div>
       </v-card>
     </v-dialog>
   </div>
@@ -140,6 +176,9 @@ export default {
   display: flex;
   width: 100%;
   justify-content: space-around;
+  align-items: baseline;
+  column-gap: 10px;
+  flex-wrap: wrap;
 }
 .sync-button {
   position: absolute;
@@ -158,5 +197,11 @@ export default {
 }
 .v-dialog > .v-card > .v-card__text {
   padding: 5px 20px;
+}
+.dir-select {
+  margin-right: 10px;
+  min-width: 200px;
+  max-width: 650px;
+  background-color: white;
 }
 </style>

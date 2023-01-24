@@ -83,7 +83,7 @@ export default {
         :label="locationType + ' Directory'"
         class="dir-select"
         solo
-        hide-details=""
+        hide-details
         @change="(dir) => this.$emit('setCurrentDir', dir)"
       />
       <v-btn x-small style="height: 45px">
