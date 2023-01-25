@@ -74,6 +74,14 @@ export default {
       console.log("save", fileInfo);
     },
   },
+  computed: {
+    currentLocalDirContents() {
+      return this.getDirContents(this.currentLocalDir);
+    },
+    currentRemoteDirContents() {
+      return this.getDirContents(this.currentRemoteDir);
+    },
+  },
   data() {
     return {
       localDirectories: [
@@ -115,8 +123,8 @@ export default {
           :currentRemoteDir="currentRemoteDir"
           :remoteDirectories="remoteDirectories"
           :localDirectories="localDirectories"
-          :currentLocalDirContents="getDirContents(currentLocalDir)"
-          :currentRemoteDirContents="getDirContents(currentRemoteDir)"
+          :currentLocalDirContents="currentLocalDirContents"
+          :currentRemoteDirContents="currentRemoteDirContents"
           :fileTypes="fileTypes"
           @setLocalDir="(dir) => (currentLocalDir = dir)"
           @setRemoteDir="(dir) => (currentRemoteDir = dir)"
@@ -128,8 +136,8 @@ export default {
           :currentRemoteDir="currentRemoteDir"
           :remoteDirectories="remoteDirectories"
           :localDirectories="localDirectories"
-          :currentLocalDirContents="getDirContents(currentLocalDir)"
-          :currentRemoteDirContents="getDirContents(currentRemoteDir)"
+          :currentLocalDirContents="currentLocalDirContents"
+          :currentRemoteDirContents="currentRemoteDirContents"
           :fileTypes="fileTypes"
           @setLocalDir="(dir) => (currentLocalDir = dir)"
           @setRemoteDir="(dir) => (currentRemoteDir = dir)"
