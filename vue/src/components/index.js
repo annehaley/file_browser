@@ -1,5 +1,5 @@
-import SaveDialog from "./SaveDialog";
+import FileDialog from "./FileDialog";
 
 export default {
-  SaveDialog,
+  FileDialog,
 };
