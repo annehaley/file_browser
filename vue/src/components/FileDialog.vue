@@ -94,7 +94,7 @@ export default {
         </v-btn>
         <div v-if="!syncCurrentLocalAndRemote">
           <v-tabs
-            fixed-tabs
+            grow
             v-model="unsyncedCurrentTab"
             active-class="highlighted-tab"
           >
@@ -128,7 +128,7 @@ export default {
         </div>
         <div v-else class="sync-display">
           <div>
-            <v-tabs fixed-tabs>
+            <v-tabs grow>
               <v-tab class="highlighted-tab">Local</v-tab>
             </v-tabs>
             <file-browser
@@ -142,7 +142,7 @@ export default {
             />
           </div>
           <div>
-            <v-tabs fixed-tabs>
+            <v-tabs grow>
               <v-tab class="highlighted-tab">Remote</v-tab>
             </v-tabs>
             <file-browser

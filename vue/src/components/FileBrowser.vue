@@ -51,6 +51,26 @@ export default {
         }
       }
     },
+    goBack() {
+      console.log("Go back");
+    },
+    goForward() {
+      console.log("Go forward");
+    },
+    goToParent() {
+      const parent = this.currentDir.split("/").slice(0, -1).join("/");
+      if (this.allDirectories.includes(parent)) {
+        this.$emit("setCurrentDir", {
+          locationType: this.locationType,
+          dirName: parent,
+        });
+      } else {
+        console.error(parent, "not found");
+      }
+    },
+    createFolder() {
+      console.log("create folder");
+    },
   },
   computed: {
     headers() {
@@ -108,17 +128,21 @@ export default {
           (dir) => this.$emit('setCurrentDir', { locationType, dirName: dir })
         "
       />
-      <v-btn x-small style="height: 45px">
+      <v-btn x-small style="height: 45px" @click="goBack">
         <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
-      <v-btn x-small style="height: 45px">
+      <v-btn x-small style="height: 45px" @click="goForward">
         <v-icon>mdi-arrow-right</v-icon>
       </v-btn>
-      <v-btn x-small style="height: 45px">
+      <v-btn x-small style="height: 45px" @click="goToParent">
         <v-icon>mdi-folder-arrow-up-outline</v-icon>
       </v-btn>
 
-      <v-btn x-small style="height: 45px; margin-left: 10px">
+      <v-btn
+        x-small
+        style="height: 45px; margin-left: 10px"
+        @click="createFolder"
+      >
         <v-icon>mdi-folder-plus-outline</v-icon>
       </v-btn>
     </div>
