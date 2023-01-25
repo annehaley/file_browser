@@ -32,7 +32,11 @@ export default {
       }
     },
     selectItem(selected) {
-      console.log("select", selected);
+      if (selected.length === 1 && selected[0].type !== "folder") {
+        this.$emit("setFileName", selected[0].name);
+      } else {
+        this.$emit("setFileName", undefined);
+      }
     },
     openItem(e, { item }) {
       if (item?.type === "folder") {

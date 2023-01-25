@@ -105,6 +105,7 @@ export default {
             <v-tab-item>
               <file-browser
                 @setCurrentDir="setCurrentDir"
+                @setFileName="(name) => (this.filename = name)"
                 locationType="Local"
                 :small="syncCurrentLocalAndRemote"
                 :allDirectories="localDirectories"
@@ -115,6 +116,7 @@ export default {
             <v-tab-item>
               <file-browser
                 @setCurrentDir="setCurrentDir"
+                @setFileName="(name) => (this.filename = name)"
                 locationType="Remote"
                 :small="syncCurrentLocalAndRemote"
                 :allDirectories="remoteDirectories"
@@ -131,6 +133,7 @@ export default {
             </v-tabs>
             <file-browser
               @setCurrentDir="setCurrentDir"
+              @setFileName="(name) => (this.filename = name)"
               locationType="Local"
               :small="syncCurrentLocalAndRemote"
               :allDirectories="localDirectories"
@@ -144,6 +147,7 @@ export default {
             </v-tabs>
             <file-browser
               @setCurrentDir="setCurrentDir"
+              @setFileName="(name) => (this.filename = name)"
               locationType="Remote"
               :small="syncCurrentLocalAndRemote"
               :allDirectories="remoteDirectories"
