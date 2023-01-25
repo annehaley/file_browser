@@ -52,6 +52,13 @@ export default {
         filename: this.filename + this.filetype,
       });
     },
+    setCurrentDir({ locationType, dirName }) {
+      if (locationType === "Local") {
+        this.$emit("setLocalDir", dirName);
+      } else {
+        this.$emit("setRemoteDir", dirName);
+      }
+    },
   },
 };
 </script>
@@ -97,22 +104,22 @@ export default {
           <v-tabs-items v-model="unsyncedCurrentTab">
             <v-tab-item>
               <file-browser
+                @setCurrentDir="setCurrentDir"
                 locationType="Local"
                 :small="syncCurrentLocalAndRemote"
                 :allDirectories="localDirectories"
                 :currentDir="currentLocalDir"
                 :dirContents="currentLocalDirContents"
-                @setCurrentDir="(dir) => this.$emit('setLocalDir', dir)"
               />
             </v-tab-item>
             <v-tab-item>
               <file-browser
+                @setCurrentDir="setCurrentDir"
                 locationType="Remote"
                 :small="syncCurrentLocalAndRemote"
                 :allDirectories="remoteDirectories"
                 :currentDir="currentRemoteDir"
                 :dirContents="currentRemoteDirContents"
-                @setCurrentDir="(dir) => this.$emit('setRemoteDir', dir)"
               />
             </v-tab-item>
           </v-tabs-items>
@@ -123,12 +130,12 @@ export default {
               <v-tab class="highlighted-tab">Local</v-tab>
             </v-tabs>
             <file-browser
+              @setCurrentDir="setCurrentDir"
               locationType="Local"
               :small="syncCurrentLocalAndRemote"
               :allDirectories="localDirectories"
               :currentDir="currentLocalDir"
               :dirContents="currentLocalDirContents"
-              @setCurrentDir="(dir) => this.$emit('setLocalDir', dir)"
             />
           </div>
           <div>
@@ -136,12 +143,12 @@ export default {
               <v-tab class="highlighted-tab">Remote</v-tab>
             </v-tabs>
             <file-browser
+              @setCurrentDir="setCurrentDir"
               locationType="Remote"
               :small="syncCurrentLocalAndRemote"
               :allDirectories="remoteDirectories"
               :currentDir="currentRemoteDir"
               :dirContents="currentRemoteDirContents"
-              @setCurrentDir="(dir) => this.$emit('setRemoteDir', dir)"
             />
           </div>
         </div>

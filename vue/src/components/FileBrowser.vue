@@ -31,6 +31,22 @@ export default {
           return "mdi-file";
       }
     },
+    selectItem(selected) {
+      console.log("select", selected);
+    },
+    openItem(e, { item }) {
+      if (item?.type === "folder") {
+        const folderLocation = this.currentDir + "/" + item.name;
+        if (this.allDirectories.includes(folderLocation)) {
+          this.$emit("setCurrentDir", {
+            locationType: this.locationType,
+            dirName: folderLocation,
+          });
+        } else {
+          console.error(folderLocation, "not found");
+        }
+      }
+    },
   },
   computed: {
     headers() {
@@ -84,7 +100,9 @@ export default {
         class="dir-select"
         solo
         hide-details
-        @change="(dir) => this.$emit('setCurrentDir', dir)"
+        @change="
+          (dir) => this.$emit('setCurrentDir', { locationType, dirName: dir })
+        "
       />
       <v-btn x-small style="height: 45px">
         <v-icon>mdi-arrow-left</v-icon>
@@ -151,8 +169,11 @@ export default {
         fixed-header
         v-model="selectedItems"
         :items="dirContents"
+        item-key="name"
         :headers="headers"
         :search="filterString"
+        @input="selectItem"
+        @dblclick:row="openItem"
       >
         <template v-slot:[`header.add_column`]="{}">
           <v-btn x-small depressed @click="showColumnPicker = true">

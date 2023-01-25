@@ -51,14 +51,14 @@ export default {
           owner: "root",
         },
         {
-          name: "Folder A",
+          name: "One",
           type: "folder",
           size: "--",
           modified: "10/29/22 4:00pm",
           owner: "root",
         },
         {
-          name: "Folder B",
+          name: "Two",
           type: "folder",
           size: "--",
           modified: "10/29/22 4:00pm",
@@ -77,18 +77,20 @@ export default {
   data() {
     return {
       localDirectories: [
-        "/home/localUser/Documents",
-        "/home/localUser/Downloads",
         "/home/localUser/Data",
         "/home/localUser/Data/One",
         "/home/localUser/Data/Two",
         "/home/localUser/Data/Three",
+        "/home/localUser/Downloads",
+        "/home/localUser/Downloads/One",
+        "/home/localUser/Downloads/Two",
+        "/home/localUser/Downloads/Three",
       ],
       remoteDirectories: [
         "remote_host:/root/data",
-        "remote_host:/root/data/one",
-        "remote_host:/root/data/two",
-        "remote_host:/root/data/three",
+        "remote_host:/root/data/One",
+        "remote_host:/root/data/Two",
+        "remote_host:/root/data/Three",
       ],
       currentLocalDir: "/home/localUser/Data/One",
       currentRemoteDir: "remote_host:/root/data/one",
