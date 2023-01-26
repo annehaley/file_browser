@@ -7,6 +7,10 @@ export default {
       type: String,
       default: "Save",
     },
+    dark: {
+      type: Boolean,
+      default: false,
+    },
     localDirectories: {
       type: Array,
       default: () => [],

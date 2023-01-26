@@ -26,6 +26,8 @@ class FileBrowser(HtmlElement):
 
     :param mode: String containing either "Save" or "Open"
     :type mode: str
+    :param dark: true for dark UI mode, false otherwise
+    :type dark: bool
 
     :param local_directories: List of all possible local directory paths
     :type local_directories: list[str]
@@ -50,6 +52,7 @@ class FileBrowser(HtmlElement):
     :param submit: Event triggered when user clicks the submit button, either to Save or to Open
     :type submit: Function or JS expression (event)
     """
+
     def __init__(self, **kwargs):
         super().__init__(
             "file-dialog",
