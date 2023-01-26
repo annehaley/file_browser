@@ -19,7 +19,11 @@ class HtmlElement(AbstractElement):
 class FileBrowser(HtmlElement):
     """
     The FileBrowser widget for trame can be used in "Save" mode (default) or "Open" mode.
-    The widget should provide a list of possible directory paths for both local and remote locations.
+    In Save mode, the widget requires a list of all applicable types for the file about to be saved.
+        Each item in the file types list should be a dictionary containing the following keys:
+        "value" (for the file extension string, beginning with ".")
+        "text" (for the name of the file type, as should appear in the file type select box)
+    The widget requires a list of possible directory paths for both local and remote locations.
     The user may select a current directory for both local and remote locations.
     When either current directory is changed, the values for the current directory contents should be re-evaluated.
     Directory contents should come as a list of files, folders, and groups.
@@ -28,6 +32,8 @@ class FileBrowser(HtmlElement):
     :type mode: str
     :param dark: true for dark UI mode, false otherwise
     :type dark: bool
+    :param file_types: List containing file types applicable to the current file (in Save mode only).
+    :param file_types: list[{value: string, text: string}]
 
     :param local_directories: List of all possible local directory paths
     :type local_directories: list[str]
@@ -49,6 +55,8 @@ class FileBrowser(HtmlElement):
     :param set_remote_dir: Event triggered when user changes the current remote dir
     :type set_remote_dir: Function or JS expression (event)
 
+    Events:
+
     :param submit: Event triggered when user clicks the submit button, either to Save or to Open
     :type submit: Function or JS expression (event)
     """
@@ -60,6 +68,8 @@ class FileBrowser(HtmlElement):
         )
         self._attr_names += [
             "mode",
+            "dark",
+            ("file_types", "fileTypes"),
             ("local_directories", "localDirectories"),
             ("remote_directories", "remoteDirectories"),
             ("current_local_dir", "currentLocalDir"),
