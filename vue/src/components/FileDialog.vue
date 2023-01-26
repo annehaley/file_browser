@@ -166,16 +166,18 @@ export default {
           <v-btn v-if="mode !== 'Save'" :disabled="!filename" @click="submit">
             {{ mode }}
           </v-btn>
-          <v-select
-            v-model="filetype"
-            :items="fileTypes"
-            label="File Type"
-            class="dir-select"
-            solo
-          />
-          <v-btn :disabled="!(filename && filetype)" @click="submit">
-            {{ mode }}
-          </v-btn>
+          <div v-if="mode === 'Save'" class="container">
+            <v-select
+              v-model="filetype"
+              :items="fileTypes"
+              label="File Type"
+              class="dir-select"
+              solo
+            />
+            <v-btn :disabled="!(filename && filetype)" @click="submit">
+              {{ mode }}
+            </v-btn>
+          </div>
         </div>
       </v-card>
     </v-dialog>
